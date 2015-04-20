@@ -5,13 +5,14 @@ public class SpringScript : MonoBehaviour {
 
 	public int sheepSpeed;
 	public GameObject sheepPrefab;
+	 
 
-	// Use this for initialization
-	void Start () {
-	
+
+	void Start () 
+	{
 	}
 	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		Vector3 movement = new Vector3 ();
@@ -24,8 +25,11 @@ public class SpringScript : MonoBehaviour {
 		void OnTriggerEnter (Collider collider)
 		{
 			if( collider.tag == "EndGameCollider")
-			{ Destroy(gameObject);
-			print ("hit");
+			{
+		    LevelController.sheepCounter += 1;
+			print ("sheep" + LevelController.sheepCounter);
+			Destroy(gameObject);
+
 			}
 		}
 

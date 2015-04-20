@@ -6,32 +6,53 @@ public class LevelController: MonoBehaviour {
 	public int sheepSpeed;
 	public float sheepSpawnChance;
 	public GameObject sheepPrefab;
-	
-	// Use this for initialization
-	void Start () {
-		
+	public int clickCounter;
+	public static int sheepCounter;
+	public int spawnAmount;
+	public int Spawned;
+	public float levelDurationCounter = 15;
+
+
+	void Start () 
+	{
+		spawnAmount = Random.Range ( 18,37);
+		print ("er worden" + spawnAmount+ "Schapen gespawnd" );
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		Vector3 sheepPosition = new Vector3();
-		
-		if(Random.value<sheepSpawnChance)
+		print("spawned" + Spawned);
+
+		if (levelDurationCounter >= 0.0f)
 		{
-			sheepPosition.x = 5.8f;
-			sheepPosition.y = 2.0f;
-			sheepPosition.z = -7.0f;
-			Instantiate(sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
-			
-			if(sheepPosition.z >= 6.0f)
-			{ 
-				Destroy(gameObject);
-			}
-			
+			levelDurationCounter -= 1 * Time.deltaTime;
+			print (levelDurationCounter);
 		}
-		
-		
-		
+
+		//for(levelDurationCounter >= 0; i < numEnemies; i++)
+
+
+		if (Spawned < spawnAmount && levelDurationCounter >= 0.0f) 
+		{
+
+			if (Random.value < sheepSpawnChance) 
+			{
+				sheepPosition.x = 5.8f;
+				sheepPosition.y = 2.0f;
+				sheepPosition.z = -7.0f;
+				Instantiate (sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
+				Spawned++;
+
+
+			}
+		}
+
+		if (Input.GetMouseButtonDown(0)) 
+		{
+			clickCounter++;
+			print ("Click" + clickCounter);
+		}
+
 	}
 }
