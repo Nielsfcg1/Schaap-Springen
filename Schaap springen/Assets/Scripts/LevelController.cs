@@ -16,7 +16,7 @@ public class LevelController: MonoBehaviour {
 	void Start () 
 	{
 		spawnAmount = Random.Range ( 18,37);
-		print ("er worden" + spawnAmount+ "Schapen gespawnd" );
+		print ("Er worden " + spawnAmount+ " schapen gespawnd" );
 	}
 	
 	void Update () 
