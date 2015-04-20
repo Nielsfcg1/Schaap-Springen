@@ -2,52 +2,83 @@
 using System.Collections;
 
 public class LevelController: MonoBehaviour {
-	
+
+	//Variabelen
 	public int sheepSpeed;
 	public float sheepSpawnChance;
 	public GameObject sheepPrefab;
 	public int clickCounter;
-	public static int sheepCounter;
+	public static int sheepDestroyCounter;
 	public int spawnAmount;
 	public int Spawned;
-	public float levelDurationCounter = 15;
+	public float levelDurationCounter;
+	public float spawnDelay;
+	public float spawnCounter;
+	public int minRangeAmount;
+	public int maxRangeAmount;
+	public float minRangeDelay;
+	public float maxRangeDelay;
 
 
 	void Start () 
 	{
-		spawnAmount = Random.Range ( 18,37);
-		print ("Er worden " + spawnAmount+ " schapen gespawnd" );
+		// Oorspronkelijke waarden
+		spawnAmount = Random.Range ( minRangeAmount,maxRangeAmount);
+		spawnDelay = Random.Range (minRangeDelay, maxRangeDelay);
+
+		//print ("Er worden " + spawnAmount+ " schapen gespawnd" );
 	}
 	
 	void Update () 
 	{
+
 		Vector3 sheepPosition = new Vector3();
-		print("spawned" + Spawned);
+		//print("spawned" + Spawned);
+
+		Debug.Log ("Counter" + spawnCounter);
+		//Debug.Log ("Delay" + spawnDelay);
+
 
 		if (levelDurationCounter >= 0.0f)
 		{
-			levelDurationCounter -= 1 * Time.deltaTime;
-			print (levelDurationCounter);
+			levelDurationCounter -= Time.deltaTime;
+			//print (levelDurationCounter);
 		}
 
-		//for(levelDurationCounter >= 0; i < numEnemies; i++)
-
-
-		if (Spawned < spawnAmount && levelDurationCounter >= 0.0f) 
+		if (spawnCounter <= spawnDelay)
 		{
+			spawnCounter += Time.deltaTime;
+		}
+		else
+		{
+			spawnDelay = Random.Range (minRangeDelay, maxRangeDelay);
+			spawnCounter = 0;
+		}
 
-			if (Random.value < sheepSpawnChance) 
+		// Spawnen van een Schaap
+		if (Spawned < spawnAmount && spawnCounter == 0.0f) 
+		{
+			sheepPosition.x = 5.8f;
+			sheepPosition.y = 2.0f;
+			sheepPosition.z = -7.0f;
+			Instantiate (sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
+			Spawned++;
+		}
+
+		// Wat er gebeurd wanneer je klaar bent met je sessie
+		if(spawnAmount == sheepDestroyCounter)
+		{
+			if (clickCounter >= (Spawned - (Spawned * 0.1)) && clickCounter <= (Spawned + (Spawned * 0.1)) )
 			{
-				sheepPosition.x = 5.8f;
-				sheepPosition.y = 2.0f;
-				sheepPosition.z = -7.0f;
-				Instantiate (sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
-				Spawned++;
-
-
+				print(" You done it");
+			}
+			else
+			{
+				print(" You stupid!");
 			}
 		}
-
+		
+		// Puntentelling
 		if (Input.GetMouseButtonDown(0)) 
 		{
 			clickCounter++;

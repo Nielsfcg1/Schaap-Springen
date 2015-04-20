@@ -26,8 +26,8 @@ public class SpringScript : MonoBehaviour {
 		{
 			if( collider.tag == "EndGameCollider")
 			{
-		    LevelController.sheepCounter += 1;
-			print ("sheep" + LevelController.sheepCounter);
+		    LevelController.sheepDestroyCounter += 1;
+			print ("sheep" + LevelController.sheepDestroyCounter);
 			Destroy(gameObject);
 
 			}
