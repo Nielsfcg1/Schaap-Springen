@@ -35,7 +35,7 @@ public class LevelController: MonoBehaviour {
 		Vector3 sheepPosition = new Vector3();
 		//print("spawned" + Spawned);
 
-		Debug.Log ("Counter" + spawnCounter);
+		//Debug.Log ("Counter" + spawnCounter);
 		//Debug.Log ("Delay" + spawnDelay);
 
 
@@ -59,8 +59,7 @@ public class LevelController: MonoBehaviour {
 		if (Spawned < spawnAmount && spawnCounter == 0.0f) 
 		{
 			sheepPosition.x = 5.8f;
-			sheepPosition.y = 2.0f;
-			sheepPosition.z = -7.0f;
+			sheepPosition.z = -9f;
 			Instantiate (sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
 			Spawned++;
 		}
@@ -70,11 +69,11 @@ public class LevelController: MonoBehaviour {
 		{
 			if (clickCounter >= (Spawned - (Spawned * 0.1)) && clickCounter <= (Spawned + (Spawned * 0.1)) )
 			{
-				print(" You done it");
+				//print(" You done it");
 			}
 			else
 			{
-				print(" You stupid!");
+				//print(" You stupid!");
 			}
 		}
 		
@@ -82,8 +81,11 @@ public class LevelController: MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) 
 		{
 			clickCounter++;
-			print ("Click" + clickCounter);
+			//print ("Click" + clickCounter);
 		}
+
+
+
 
 	}
 }
