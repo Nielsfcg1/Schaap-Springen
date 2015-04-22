@@ -60,6 +60,7 @@ public class LevelController: MonoBehaviour {
 		{
 			sheepPosition.x = 5.8f;
 			sheepPosition.z = -9f;
+			sheepPosition.y = 1f;
 			Instantiate (sheepPrefab, sheepPosition, sheepPrefab.transform.rotation);
 			Spawned++;
 		}

@@ -5,16 +5,15 @@ using System.Collections.Generic;
 public class SpringScript : MonoBehaviour {
 
 	public int sheepSpeed;
-	public GameObject sheepPrefab;
-	public float jumpHeight;
-	public Vector3 jump;
+	public int jumpHeight;
+	public bool isGrounded = false;
+	public float jumpPosition;
 	public Rigidbody rb;
-	public Vector3 pos = new Vector3 ();
-	public Vector3 lpos = new Vector3 ();
-	public bool canJump = false;
+	public bool canJump = true;
 	void Start () 
 	{
-		pos = transform.position;
+		jumpPosition = Random.Range (-3.99f, -2.01f);
+
 	}
 	
 
@@ -24,36 +23,53 @@ public class SpringScript : MonoBehaviour {
 		movement.z = Time.deltaTime * sheepSpeed;
 		transform.Translate (movement);
 
-		Vector3 sheepPosition = new Vector3 ();
-
 		// Schapen Springen
-		if (pos.z >= Random.Range (-3.99f, -2.01f) && transform.position.z <= 0.5f) // NIET VERGETEN DAT HET SCHAAP AAN DE GROND MOET BLIJVEN
-		{
-			canJump = true;
-			print( "Als ie nu niet springt....");
-			lpos.y += 5.0f;
-		}
-		else
-		{
+		if (transform.position.z >= jumpPosition && canJump) 
+			{
+			//print("spring kutschaap");
+			jump ();
+			}
 
-		}
 	}
+		void jump()
+			{
+				
+				rb.AddForce(new Vector3 (0,jumpHeight,0),ForceMode.Force);
+				canJump = false;
+				print("void jump wordt uitgevoerd");
+			}
+
+
+
+
 
 	void OnTriggerEnter (Collider collider)
 	{
 		if( collider.tag == "EndGameCollider")
 		{
 	    LevelController.sheepDestroyCounter += 1;
-		print ("sheep" + LevelController.sheepDestroyCounter);
+		//print ("sheep" + LevelController.sheepDestroyCounter);
 		Destroy(gameObject);
 
 		}
 	}
 
-		//if(colliding.CompareTag("EndLevelCollider"))
-		//{
-		//	Destroy(GameObject);
-		//}
+		
+	/*void OnCollisionEnter (Collision Coll)
+	{
+		if (Coll.gameObject.tag == "Ground")
+		{
+			isGrounded = true;
+		}
+	}
+
+	void OnCollisionExit (Collision Coll)
+	{
+		if (Coll.gameObject.tag == "Ground")
+		{
+			isGrounded = false;
+		}
+	}*/
 
 
 	
